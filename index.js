@@ -10,14 +10,14 @@ function Message(type, data) {
     };
 }
 
-var hrstart = process.hrtime();
+let hrstart = process.hrtime();
 
-var numberOfConnection = 20000;
-var numberOfResponse = 0;
-
+let numberOfConnection = 10000;
+let numberOfResponse = 0;
+let ipPort = process.argv[2] || 'localhost:1337';
 for (let i = 0; i < numberOfConnection; i++) {
     try {
-        let ws = new WebSocket('ws://localhost:1337/?userToken=test');
+        let ws = new WebSocket(`ws://${ipPort}/?userToken=test`);
 
         ws.on('open', function open() {
             ws.send(new Message('service-request', {}).toString());
